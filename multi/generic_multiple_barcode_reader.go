@@ -1,6 +1,8 @@
 package multi
 
 import (
+	"fmt"
+
 	"github.com/MarcoWel/gozxing"
 )
 
@@ -74,7 +76,7 @@ func (r *GenericMultipleBarcodeReader) doDecodeMultiple(image *gozxing.BinaryBit
 	var maxX, maxY = 0, 0
 
 	for _, point := range resultPoints {
-		x, y := point.GetX(), point.GetY()
+		x, y := int(point.GetX()), int(point.GetY())
 		if x < minX {
 			minX = x
 		}
@@ -106,7 +108,7 @@ func (r *GenericMultipleBarcodeReader) doDecodeMultiple(image *gozxing.BinaryBit
 	}
 	// Decode below barcode
 	if maxY < height-minDimensionToRecur {
-		subImage, _ := image.Crop(0, maxY, width, height-max))
+		subImage, _ := image.Crop(0, maxY, width, height-maxY)
 		r.doDecodeMultiple(subImage, hints, results, xOffset, yOffset+maxY, currentDepth+1)
 	}
 
