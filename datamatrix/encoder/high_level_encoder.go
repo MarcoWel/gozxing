@@ -4,7 +4,7 @@ import (
 	"math"
 	"strings"
 
-	"github.com/makiuchi-d/gozxing"
+	"github.com/MarcoWel/gozxing"
 )
 
 // DataMatrix ECC 200 data encoder following the algorithm described in ISO/IEC 16022:200(E) in annex S.
@@ -86,11 +86,12 @@ func randomize253State(codewordPosition int) byte {
 //
 // @param msg     the message
 // @param shape   requested shape. May be {@code SymbolShapeHint.FORCE_NONE},
-//                {@code SymbolShapeHint.FORCE_SQUARE} or {@code SymbolShapeHint.FORCE_RECTANGLE}.
+//
+//	{@code SymbolShapeHint.FORCE_SQUARE} or {@code SymbolShapeHint.FORCE_RECTANGLE}.
+//
 // @param minSize the minimum symbol size constraint or null for no constraint
 // @param maxSize the maximum symbol size constraint or null for no constraint
 // @return the encoded message (the char values range from 0 to 255)
-//
 func EncodeHighLevel(msg string, shape SymbolShapeHint, minSize, maxSize *gozxing.Dimension) ([]byte, error) {
 	//the codewords 0..255 are encoded as Unicode characters
 	encoders := []Encoder{
@@ -371,7 +372,6 @@ func isSpecialB256(ch byte) bool {
 // @param msg      the message
 // @param startpos the start position within the message
 // @return the requested character count
-//
 func HighLevelEncoder_determineConsecutiveDigitCount(msg []byte, startpos int) int {
 	len := len(msg)
 	idx := startpos

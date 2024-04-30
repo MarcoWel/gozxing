@@ -1,7 +1,7 @@
 package decoder
 
 import (
-	"github.com/makiuchi-d/gozxing"
+	"github.com/MarcoWel/gozxing"
 )
 
 // DataBlock Encapsulates a block of data within a Data Matrix Code.
@@ -21,7 +21,6 @@ type DataBlock struct {
 // @param rawCodewords bytes as read directly from the Data Matrix Code
 // @param version version of the Data Matrix Code
 // @return DataBlocks containing original bytes, "de-interleaved" from representation in the Data Matrix Code
-//
 func DataBlocks_getDataBlocks(rawCodewords []byte, version *Version) ([]DataBlock, error) {
 	// Figure out the number and size of data blocks used by this version
 	ecBlocks := version.getECBlocks()

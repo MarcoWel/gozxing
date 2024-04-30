@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/makiuchi-d/gozxing"
+	"github.com/MarcoWel/gozxing"
 )
 
 func TestCode39ToIntArray(t *testing.T) {

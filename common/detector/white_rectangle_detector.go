@@ -1,8 +1,8 @@
 package detector
 
 import (
-	"github.com/makiuchi-d/gozxing"
-	"github.com/makiuchi-d/gozxing/common/util"
+	"github.com/MarcoWel/gozxing"
+	"github.com/MarcoWel/gozxing/common/util"
 )
 
 const (
@@ -57,12 +57,13 @@ func NewWhiteRectangleDetector(image *gozxing.BitMatrix, initSize, x, y int) (*W
 // region until it finds a white rectangular region.
 //
 // @return {@link ResultPoint}[] describing the corners of the rectangular
-//         region. The first and last points are opposed on the diagonal, as
-//         are the second and third. The first point will be the topmost
-//         point and the last, the bottommost. The second point will be
-//         leftmost and the third, the rightmost
-// @throws NotFoundException if no Data Matrix Code can be found
 //
+//	region. The first and last points are opposed on the diagonal, as
+//	are the second and third. The first point will be the topmost
+//	point and the last, the bottommost. The second point will be
+//	leftmost and the third, the rightmost
+//
+// @throws NotFoundException if no Data Matrix Code can be found
 func (this *WhiteRectangleDetector) Detect() ([]gozxing.ResultPoint, error) {
 	left := this.leftInit
 	right := this.rightInit
@@ -233,11 +234,11 @@ func (this *WhiteRectangleDetector) getBlackPointOnSegment(aX, aY, bX, bY int) g
 // @param x right most point
 // @param t top most point
 // @return {@link ResultPoint}[] describing the corners of the rectangular
-//         region. The first and last points are opposed on the diagonal, as
-//         are the second and third. The first point will be the topmost
-//         point and the last, the bottommost. The second point will be
-//         leftmost and the third, the rightmost
 //
+//	region. The first and last points are opposed on the diagonal, as
+//	are the second and third. The first point will be the topmost
+//	point and the last, the bottommost. The second point will be
+//	leftmost and the third, the rightmost
 func (this *WhiteRectangleDetector) centerEdges(y, z, x, t gozxing.ResultPoint) []gozxing.ResultPoint {
 
 	//
@@ -280,7 +281,6 @@ func (this *WhiteRectangleDetector) centerEdges(y, z, x, t gozxing.ResultPoint) 
 // @param fixed      value of fixed coordinate
 // @param horizontal set to true if scan must be horizontal, false if vertical
 // @return true if a black point has been found, else false.
-//
 func (this *WhiteRectangleDetector) containsBlackPoint(a, b, fixed int, horizontal bool) bool {
 
 	if horizontal {

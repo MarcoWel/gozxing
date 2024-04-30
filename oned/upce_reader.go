@@ -1,7 +1,7 @@
 package oned
 
 import (
-	"github.com/makiuchi-d/gozxing"
+	"github.com/MarcoWel/gozxing"
 )
 
 // upce_MIDDLE_END_PATTERN The pattern that marks the middle, and end, of a UPC-E pattern.
@@ -36,7 +36,6 @@ var upce_MIDDLE_END_PATTERN = []int{1, 1, 1, 1, 1, 1}
 // these values similarly represent patterns of
 // even-odd parity encodings of digits that imply both the number system (0 or 1)
 // used, and the check digit.
-//
 var upce_NUMSYS_AND_CHECK_DIGIT_PATTERNS = [][]int{
 	{0x38, 0x34, 0x32, 0x31, 0x2C, 0x26, 0x23, 0x2A, 0x29, 0x25},
 	{0x07, 0x0B, 0x0D, 0x0E, 0x13, 0x19, 0x1C, 0x15, 0x16, 0x1A},
@@ -119,7 +118,6 @@ func (this *upcEReader) getBarcodeFormat() gozxing.BarcodeFormat {
 //
 // @param upce UPC-E code as string of digits
 // @return equivalent UPC-A code as string of digits
-//
 func convertUPCEtoUPCA(upce string) string {
 	upceChars := upce[1:7]
 	result := make([]byte, 0, 12)

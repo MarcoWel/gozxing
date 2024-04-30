@@ -3,7 +3,7 @@ package decoder
 import (
 	"strconv"
 
-	"github.com/makiuchi-d/gozxing"
+	"github.com/MarcoWel/gozxing"
 )
 
 // Version The Version object encapsulates attributes about a particular
@@ -76,7 +76,6 @@ func (v *Version) getECBlocks() *ECBlocks {
 // @param numColumns Number of columns in modules
 // @return Version for a Data Matrix Code of those dimensions
 // @throws FormatException if dimensions do correspond to a valid Data Matrix size
-//
 func getVersionForDimensions(numRows, numColumns int) (*Version, error) {
 	if (numRows&0x01) != 0 || (numColumns&0x01) != 0 {
 		return nil, gozxing.NewFormatException("numRows=%v, numCols=%v", numRows, numColumns)

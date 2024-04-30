@@ -1,7 +1,7 @@
 package encoder
 
 import (
-	"github.com/makiuchi-d/gozxing"
+	"github.com/MarcoWel/gozxing"
 )
 
 type C40Encoder struct {
@@ -86,7 +86,6 @@ func c40WriteNextTriplet(context *EncoderContext, buffer []byte) []byte {
 //
 // @param context the encoder context
 // @param buffer  the buffer with the remaining encoded characters
-//
 func c40HandleEOD(context *EncoderContext, buffer []byte) error {
 	unwritten := (len(buffer) / 3) * 2
 	rest := len(buffer) % 3

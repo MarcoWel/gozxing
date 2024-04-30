@@ -3,7 +3,7 @@ package oned
 import (
 	"math"
 
-	"github.com/makiuchi-d/gozxing"
+	"github.com/MarcoWel/gozxing"
 )
 
 type RowDecoder interface {
@@ -192,7 +192,7 @@ func (this *OneDReader) doDecode(
 	return nil, gozxing.NewNotFoundException()
 }
 
-//RecordPattern Records the size of successive runs of white and black pixels in a row,
+// RecordPattern Records the size of successive runs of white and black pixels in a row,
 // starting at a given point.
 // The values are recorded in the given array, and the number of runs recorded is equal to the size
 // of the array. If the row starts on a white pixel at the given start point, then the first count
@@ -203,7 +203,8 @@ func (this *OneDReader) doDecode(
 // @param start offset into row to start at
 // @param counters array into which to record counts
 // @throws NotFoundException if counters cannot be filled entirely from row before running out
-//  of pixels
+//
+//	of pixels
 func RecordPattern(row *gozxing.BitArray, start int, counters []int) error {
 	numCounters := len(counters)
 	for i := range counters {
@@ -255,7 +256,7 @@ func RecordPatternInReverse(row *gozxing.BitArray, start int, counters []int) er
 	return RecordPattern(row, start+1, counters)
 }
 
-//PatternMatchVariance Determines how closely a set of observed counts of runs of
+// PatternMatchVariance Determines how closely a set of observed counts of runs of
 // black/white values matches a given target pattern.
 // This is reported as the ratio of the total variance from the expected pattern
 // proportions across all pattern elements, to the length of the pattern.

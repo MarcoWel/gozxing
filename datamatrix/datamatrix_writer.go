@@ -1,9 +1,9 @@
 package datamatrix
 
 import (
-	"github.com/makiuchi-d/gozxing"
-	"github.com/makiuchi-d/gozxing/datamatrix/encoder"
-	qrencoder "github.com/makiuchi-d/gozxing/qrcode/encoder"
+	"github.com/MarcoWel/gozxing"
+	"github.com/MarcoWel/gozxing/datamatrix/encoder"
+	qrencoder "github.com/MarcoWel/gozxing/qrcode/encoder"
 )
 
 // DataMatrixWriter This object renders a Data Matrix code as a BitMatrix 2D array of greyscale values.
@@ -82,7 +82,6 @@ func (this *DataMatrixWriter) Encode(contents string, format gozxing.BarcodeForm
 // @param placement  The DataMatrix placement.
 // @param symbolInfo The symbol info to encode.
 // @return The bit matrix generated.
-//
 func encodeLowLevel(placement *encoder.DefaultPlacement,
 	symbolInfo *encoder.SymbolInfo, width, height int) *gozxing.BitMatrix {
 
@@ -140,7 +139,6 @@ func encodeLowLevel(placement *encoder.DefaultPlacement,
 // @param reqWidth The requested width of the image (in pixels) with the Datamatrix code
 // @param matrix The input matrix.
 // @return The output matrix.
-//
 func convertByteMatrixToBitMatrix(matrix *qrencoder.ByteMatrix, reqWidth, reqHeight int) *gozxing.BitMatrix {
 	matrixWidth := matrix.GetWidth()
 	matrixHeight := matrix.GetHeight()

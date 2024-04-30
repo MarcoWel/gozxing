@@ -5,8 +5,8 @@ import (
 
 	errors "golang.org/x/xerrors"
 
-	"github.com/makiuchi-d/gozxing"
-	"github.com/makiuchi-d/gozxing/qrcode/decoder"
+	"github.com/MarcoWel/gozxing"
+	"github.com/MarcoWel/gozxing/qrcode/decoder"
 )
 
 var (
@@ -297,18 +297,22 @@ func findMSBSet(value int) int {
 // f(x) is created from 7.
 //   - 7 = 000111 in 6 bits
 //   - f(x) = x^2 + x^1 + x^0
+//
 // g(x) is given by the standard (p. 67)
 //   - g(x) = x^12 + x^11 + x^10 + x^9 + x^8 + x^5 + x^2 + 1
+//
 // Multiply f(x) by x^(18 - 6)
 //   - f'(x) = f(x) * x^(18 - 6)
 //   - f'(x) = x^14 + x^13 + x^12
+//
 // Calculate the remainder of f'(x) / g(x)
-//         x^2
-//         __________________________________________________
-//   g(x) )x^14 + x^13 + x^12
-//         x^14 + x^13 + x^12 + x^11 + x^10 + x^7 + x^4 + x^2
-//         --------------------------------------------------
-//                              x^11 + x^10 + x^7 + x^4 + x^2
+//
+//	      x^2
+//	      __________________________________________________
+//	g(x) )x^14 + x^13 + x^12
+//	      x^14 + x^13 + x^12 + x^11 + x^10 + x^7 + x^4 + x^2
+//	      --------------------------------------------------
+//	                           x^11 + x^10 + x^7 + x^4 + x^2
 //
 // The remainder is x^11 + x^10 + x^7 + x^4 + x^2
 // Encode it in binary: 110010010100

@@ -3,9 +3,9 @@ package qrcode
 import (
 	"strconv"
 
-	"github.com/makiuchi-d/gozxing"
-	"github.com/makiuchi-d/gozxing/qrcode/decoder"
-	"github.com/makiuchi-d/gozxing/qrcode/encoder"
+	"github.com/MarcoWel/gozxing"
+	"github.com/MarcoWel/gozxing/qrcode/decoder"
+	"github.com/MarcoWel/gozxing/qrcode/encoder"
 )
 
 const (

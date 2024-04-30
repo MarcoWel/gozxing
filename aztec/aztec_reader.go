@@ -4,10 +4,10 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/makiuchi-d/gozxing"
-	"github.com/makiuchi-d/gozxing/aztec/decoder"
-	"github.com/makiuchi-d/gozxing/aztec/detector"
-	"github.com/makiuchi-d/gozxing/common"
+	"github.com/MarcoWel/gozxing"
+	"github.com/MarcoWel/gozxing/aztec/decoder"
+	"github.com/MarcoWel/gozxing/aztec/detector"
+	"github.com/MarcoWel/gozxing/common"
 )
 
 // AztecReader : This implementation can detect and decode Aztec codes in an image.
@@ -28,7 +28,6 @@ func (r *AztecReader) DecodeWithoutHints(image *gozxing.BinaryBitmap) (*gozxing.
 // @return a String representing the content encoded by the Data Matrix code
 // @throws NotFoundException if a Data Matrix code cannot be found
 // @throws FormatException if a Data Matrix code cannot be decoded
-//
 func (r *AztecReader) Decode(image *gozxing.BinaryBitmap, hints map[gozxing.DecodeHintType]interface{}) (*gozxing.Result, error) {
 
 	var notFoundException error

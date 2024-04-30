@@ -3,7 +3,7 @@ package oned
 import (
 	"strconv"
 
-	"github.com/makiuchi-d/gozxing"
+	"github.com/MarcoWel/gozxing"
 )
 
 type UPCEANExtension2Support struct {
@@ -91,7 +91,8 @@ func (this *UPCEANExtension2Support) decodeMiddle(row *gozxing.BitArray, startRa
 
 // @param raw raw content of extension
 // @return formatted interpretation of raw content as a {@link Map} mapping
-//  one {@link ResultMetadataType} to appropriate value, or {@code null} if not known
+//
+//	one {@link ResultMetadataType} to appropriate value, or {@code null} if not known
 func (this *UPCEANExtension2Support) parseExtensionString(raw string) map[gozxing.ResultMetadataType]interface{} {
 	if len(raw) != 2 {
 		return nil

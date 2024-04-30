@@ -3,7 +3,7 @@ package oned
 import (
 	"strconv"
 
-	"github.com/makiuchi-d/gozxing"
+	"github.com/MarcoWel/gozxing"
 )
 
 const (
@@ -280,7 +280,7 @@ func upceanReader_checkChecksum(s string) (bool, error) {
 // and reports whether the checksum is correct or not.
 //
 // @param s string of digits to check
-/// @return true iff string of digits passes the UPC/EAN checksum algorithm
+// / @return true iff string of digits passes the UPC/EAN checksum algorithm
 // @throws FormatException if the string does not contain only digits
 func upceanReader_checkStandardUPCEANChecksum(s string) (bool, error) {
 	length := len(s)

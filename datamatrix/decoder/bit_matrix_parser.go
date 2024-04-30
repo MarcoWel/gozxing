@@ -1,7 +1,7 @@
 package decoder
 
 import (
-	"github.com/makiuchi-d/gozxing"
+	"github.com/MarcoWel/gozxing"
 )
 
 type BitMatrixParser struct {
@@ -177,7 +177,6 @@ func (p *BitMatrixParser) readModule(row, column, numRows, numColumns int) bool 
 // @param numRows Number of rows in the mapping matrix
 // @param numColumns Number of columns in the mapping matrix
 // @return byte from the utah shape
-//
 func (p *BitMatrixParser) readUtah(row, column, numRows, numColumns int) byte {
 	currentByte := byte(0)
 	if p.readModule(row-2, column-2, numRows, numColumns) {
@@ -221,7 +220,6 @@ func (p *BitMatrixParser) readUtah(row, column, numRows, numColumns int) byte {
 // @param numRows Number of rows in the mapping matrix
 // @param numColumns Number of columns in the mapping matrix
 // @return byte from the Corner condition 1
-//
 func (p *BitMatrixParser) readCorner1(numRows, numColumns int) byte {
 	currentByte := byte(0)
 	if p.readModule(numRows-1, 0, numRows, numColumns) {
@@ -308,7 +306,6 @@ func (p *BitMatrixParser) readCorner2(numRows, numColumns int) byte {
 // @param numRows Number of rows in the mapping matrix
 // @param numColumns Number of columns in the mapping matrix
 // @return byte from the Corner condition 3
-//
 func (p *BitMatrixParser) readCorner3(numRows, numColumns int) byte {
 	currentByte := byte(0)
 	if p.readModule(numRows-1, 0, numRows, numColumns) {
@@ -352,7 +349,6 @@ func (p *BitMatrixParser) readCorner3(numRows, numColumns int) byte {
 // @param numRows Number of rows in the mapping matrix
 // @param numColumns Number of columns in the mapping matrix
 // @return byte from the Corner condition 4
-//
 func (p *BitMatrixParser) readCorner4(numRows, numColumns int) byte {
 	currentByte := byte(0)
 	if p.readModule(numRows-3, 0, numRows, numColumns) {
@@ -393,7 +389,6 @@ func (p *BitMatrixParser) readCorner4(numRows, numColumns int) byte {
 //
 // @param bitMatrix Original {@link BitMatrix} with alignment patterns
 // @return BitMatrix that has the alignment patterns removed
-//
 func extractDataRegion(version *Version, bitMatrix *gozxing.BitMatrix) (*gozxing.BitMatrix, error) {
 	symbolSizeRows := version.getSymbolSizeRows()
 	symbolSizeColumns := version.getSymbolSizeColumns()

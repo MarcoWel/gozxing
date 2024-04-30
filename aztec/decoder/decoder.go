@@ -8,10 +8,10 @@ import (
 	"golang.org/x/text/encoding/charmap"
 	"golang.org/x/text/transform"
 
-	"github.com/makiuchi-d/gozxing"
-	"github.com/makiuchi-d/gozxing/aztec/detector"
-	"github.com/makiuchi-d/gozxing/common"
-	"github.com/makiuchi-d/gozxing/common/reedsolomon"
+	"github.com/MarcoWel/gozxing"
+	"github.com/MarcoWel/gozxing/aztec/detector"
+	"github.com/MarcoWel/gozxing/common"
+	"github.com/MarcoWel/gozxing/common/reedsolomon"
 )
 
 type Table int
@@ -89,7 +89,6 @@ func (this *Decoder) HighLevelDecode(correctedBits []bool) (string, error) {
 // getEncodedData Gets the string encoded in the aztec code bits
 //
 // @return the decoded string
-//
 func (this *Decoder) getEncodedData(correctedBits []bool) (string, error) {
 	endIndex := len(correctedBits)
 	latchTable := TableUPPER // table most recently latched to
@@ -213,7 +212,6 @@ func (this *Decoder) getEncodedData(correctedBits []bool) (string, error) {
 }
 
 // getTable gets the table corresponding to the char passed
-//
 func getTable(t byte) Table {
 	switch t {
 	case 'L':
@@ -236,7 +234,6 @@ func getTable(t byte) Table {
 //
 // @param table the table used
 // @param code the code of the character
-//
 func getCharacter(table Table, code int) (string, error) {
 	var tbl []string
 	switch table {
@@ -269,7 +266,6 @@ type correctedBitsResult struct {
 //
 // @return the corrected array
 // @throws FormatException if the input contains too many errors
-//
 func (this *Decoder) correctBits(rawbits []bool) (*correctedBitsResult, error) {
 	var gf *reedsolomon.GenericGF
 	var codewordSize int
@@ -346,7 +342,6 @@ func (this *Decoder) correctBits(rawbits []bool) (*correctedBitsResult, error) {
 // extractBits Gets the array of bits from an Aztec Code matrix
 //
 // @return the array of bits
-//
 func (this *Decoder) extractBits(matrix *gozxing.BitMatrix) []bool {
 	compact := this.ddata.IsCompact()
 	layers := this.ddata.GetNbLayers()

@@ -1,8 +1,8 @@
 package detector
 
 import (
-	"github.com/makiuchi-d/gozxing"
-	"github.com/makiuchi-d/gozxing/common"
+	"github.com/MarcoWel/gozxing"
+	"github.com/MarcoWel/gozxing/common"
 )
 
 // AztecDetectorResult Extends {@link DetectorResult} with more information specific to the Aztec format,

@@ -1,7 +1,7 @@
 package encoder
 
 import (
-	"github.com/makiuchi-d/gozxing"
+	"github.com/MarcoWel/gozxing"
 )
 
 var (
@@ -76,7 +76,6 @@ func init() {
 // @param codewords  the codewords
 // @param symbolInfo information about the symbol to be encoded
 // @return the codewords with interleaved error correction.
-//
 func ErrorCorrection_EncodeECC200(codewords []byte, symbolInfo *SymbolInfo) ([]byte, error) {
 	if len(codewords) != symbolInfo.GetDataCapacity() {
 		return nil, gozxing.NewWriterException(

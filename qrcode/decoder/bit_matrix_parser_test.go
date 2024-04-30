@@ -4,12 +4,13 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/makiuchi-d/gozxing"
+	"github.com/MarcoWel/gozxing"
 )
 
 // formatinfo = 110100101110110 = 0x6976
-//   ecl = 0b11 (L)
-//   mask = 0b010
+//
+//	ecl = 0b11 (L)
+//	mask = 0b010
 var qrstr = "" +
 	"##############    ##  ####  ##############\n" +
 	"##          ##  ####  ##    ##          ##\n" +

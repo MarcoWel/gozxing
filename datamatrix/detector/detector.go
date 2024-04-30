@@ -1,9 +1,9 @@
 package detector
 
 import (
-	"github.com/makiuchi-d/gozxing"
-	"github.com/makiuchi-d/gozxing/common"
-	cdetector "github.com/makiuchi-d/gozxing/common/detector"
+	"github.com/MarcoWel/gozxing"
+	"github.com/MarcoWel/gozxing/common"
+	cdetector "github.com/MarcoWel/gozxing/common/detector"
 )
 
 type Detector struct {
@@ -23,7 +23,6 @@ func NewDetector(image *gozxing.BitMatrix) (*Detector, error) {
 //
 // @return {@link DetectorResult} encapsulating results of detecting a Data Matrix Code
 // @throws NotFoundException if no Data Matrix Code can be found
-//
 func (this *Detector) Detect() (*common.DetectorResult, error) {
 
 	cornerPoints, e := this.rectangleDetector.Detect()

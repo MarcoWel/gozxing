@@ -5,7 +5,7 @@ package oned
 import (
 	"strconv"
 
-	"github.com/makiuchi-d/gozxing"
+	"github.com/MarcoWel/gozxing"
 )
 
 var code128CODE_PATTERNS = [][]int{

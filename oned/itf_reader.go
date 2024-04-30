@@ -1,7 +1,7 @@
 package oned
 
 import (
-	"github.com/makiuchi-d/gozxing"
+	"github.com/MarcoWel/gozxing"
 )
 
 // Implements decoding of the ITF format, or Interleaved Two of Five.
@@ -148,7 +148,6 @@ func (this *itfReader) DecodeRow(rowNumber int, row *gozxing.BitArray, hints map
 // @param payloadStart offset of start pattern
 // @param resultString {@link StringBuilder} to append decoded chars to
 // @throws NotFoundException if decoding could not complete successfully
-//
 func (*itfReader) decodeMiddle(row *gozxing.BitArray, payloadStart, payloadEnd int, resultString []byte) ([]byte, error) {
 
 	// Digits are interleaved in pairs - 5 black lines for one digit, and the
@@ -196,7 +195,6 @@ func (*itfReader) decodeMiddle(row *gozxing.BitArray, payloadStart, payloadEnd i
 //
 // @param row row of black/white values to search
 // @return Array, containing index of start of 'start block' and end of 'start block'
-//
 func (this *itfReader) decodeStart(row *gozxing.BitArray) ([]int, error) {
 	endStart, e := itfReader_skipWhiteSpace(row)
 	if e != nil {
@@ -233,7 +231,6 @@ func (this *itfReader) decodeStart(row *gozxing.BitArray) ([]int, error) {
 // @param row bit array representing the scanned barcode.
 // @param startPattern index into row of the start or end pattern.
 // @throws NotFoundException if the quiet zone cannot be found
-//
 func (this *itfReader) validateQuietZone(row *gozxing.BitArray, startPattern int) error {
 	quietCount := this.narrowLineWidth * 10 // expect to find this many pixels of quiet zone
 
@@ -260,7 +257,6 @@ func (this *itfReader) validateQuietZone(row *gozxing.BitArray, startPattern int
 // @param row row of black/white values to search
 // @return index of the first black line.
 // @throws NotFoundException Throws exception if no black lines are found in the row
-//
 func itfReader_skipWhiteSpace(row *gozxing.BitArray) (int, error) {
 	width := row.GetSize()
 	endStart := row.GetNextSet(0)
@@ -275,7 +271,6 @@ func itfReader_skipWhiteSpace(row *gozxing.BitArray) (int, error) {
 //
 // @param row row of black/white values to search
 // @return Array, containing index of start of 'end block' and end of 'end block'
-//
 func (this *itfReader) decodeEnd(row *gozxing.BitArray) ([]int, error) {
 
 	// For convenience, reverse the row and then
@@ -317,10 +312,11 @@ func (this *itfReader) decodeEnd(row *gozxing.BitArray) ([]int, error) {
 // @param row       row of black/white values to search
 // @param rowOffset position to start search
 // @param pattern   pattern of counts of number of black and white pixels that are
-//                  being searched for as a pattern
+//
+//	being searched for as a pattern
+//
 // @return start/end horizontal offset of guard pattern, as an array of two ints
 // @throws NotFoundException if pattern is not found
-//
 func itfReader_findGuardPattern(row *gozxing.BitArray, rowOffset int, pattern []int) ([]int, error) {
 	patternLength := len(pattern)
 	counters := make([]int, patternLength)
@@ -357,7 +353,6 @@ func itfReader_findGuardPattern(row *gozxing.BitArray, rowOffset int, pattern []
 // @param counters the counts of runs of observed black/white/black/... values
 // @return The decoded digit
 // @throws NotFoundException if digit cannot be decoded
-//
 func itfReader_decodeDigit(counters []int) (int, error) {
 	bestVariance := itfReader_MAX_AVG_VARIANCE // worst variance we'll accept
 	bestMatch := -1

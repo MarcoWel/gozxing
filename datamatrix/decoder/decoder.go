@@ -1,14 +1,14 @@
 package decoder
 
 import (
-	"github.com/makiuchi-d/gozxing"
-	"github.com/makiuchi-d/gozxing/common"
-	"github.com/makiuchi-d/gozxing/common/reedsolomon"
+	"github.com/MarcoWel/gozxing"
+	"github.com/MarcoWel/gozxing/common"
+	"github.com/MarcoWel/gozxing/common/reedsolomon"
 )
 
 // Decoder The main class which implements Data Matrix Code decoding
-//  -- as opposed to locating and extracting the Data Matrix Code from an image.
 //
+//	-- as opposed to locating and extracting the Data Matrix Code from an image.
 type Decoder struct {
 	rsDecoder *reedsolomon.ReedSolomonDecoder
 }
@@ -26,7 +26,6 @@ func NewDecoder() *Decoder {
 // @return text and bytes encoded within the Data Matrix Code
 // @throws FormatException if the Data Matrix Code cannot be decoded
 // @throws ChecksumException if error correction fails
-//
 func (d *Decoder) DecodeBoolMap(image [][]bool) (*common.DecoderResult, error) {
 	bits, e := gozxing.ParseBoolMapToBitMatrix(image)
 	if e != nil {
@@ -42,7 +41,6 @@ func (d *Decoder) DecodeBoolMap(image [][]bool) (*common.DecoderResult, error) {
 // @return text and bytes encoded within the Data Matrix Code
 // @throws FormatException if the Data Matrix Code cannot be decoded
 // @throws ChecksumException if error correction fails
-//
 func (d *Decoder) Decode(bits *gozxing.BitMatrix) (*common.DecoderResult, error) {
 
 	// Construct a parser and read version, error-correction level
@@ -93,7 +91,6 @@ func (d *Decoder) Decode(bits *gozxing.BitMatrix) (*common.DecoderResult, error)
 // @param codewordBytes data and error correction codewords
 // @param numDataCodewords number of codewords that are data bytes
 // @throws ChecksumException if error correction fails
-//
 func (d *Decoder) correctErrors(codewordBytes []byte, numDataCodewords int) error {
 	numCodewords := len(codewordBytes)
 	// First read into an array of ints

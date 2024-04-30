@@ -3,8 +3,8 @@ package rss
 import (
 	"math"
 
-	"github.com/makiuchi-d/gozxing"
-	"github.com/makiuchi-d/gozxing/oned"
+	"github.com/MarcoWel/gozxing"
+	"github.com/MarcoWel/gozxing/oned"
 )
 
 // Superclass of {@link OneDReader} implementations that read barcodes in the RSS family

@@ -5,8 +5,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/makiuchi-d/gozxing"
-	"github.com/makiuchi-d/gozxing/testutil"
+	"github.com/MarcoWel/gozxing"
+	"github.com/MarcoWel/gozxing/testutil"
 )
 
 func TestCode128FindStartPattern(t *testing.T) {

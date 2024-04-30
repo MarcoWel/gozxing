@@ -5,11 +5,11 @@ import (
 	"math"
 	"math/bits"
 
-	"github.com/makiuchi-d/gozxing"
-	"github.com/makiuchi-d/gozxing/common"
-	"github.com/makiuchi-d/gozxing/common/detector"
-	"github.com/makiuchi-d/gozxing/common/reedsolomon"
-	"github.com/makiuchi-d/gozxing/common/util"
+	"github.com/MarcoWel/gozxing"
+	"github.com/MarcoWel/gozxing/common"
+	"github.com/MarcoWel/gozxing/common/detector"
+	"github.com/MarcoWel/gozxing/common/reedsolomon"
+	"github.com/MarcoWel/gozxing/common/util"
 )
 
 var (
@@ -23,7 +23,6 @@ var (
 
 // Detector : Encapsulates logic that can detect an Aztec Code in an image, even if the Aztec Code
 // is rotated or skewed, or partially obscured.
-//
 type Detector struct {
 	image *gozxing.BitMatrix
 
@@ -49,7 +48,6 @@ func (this *Detector) DetectNoMirror() (*AztecDetectorResult, error) {
 // @param isMirror if true, image is a mirror-image of original
 // @return {@link AztecDetectorResult} encapsulating results of detecting an Aztec Code
 // @throws NotFoundException if no Aztec Code can be found
-//
 func (this *Detector) Detect(isMirror bool) (*AztecDetectorResult, error) {
 
 	// 1. Get the center of the aztec matrix
@@ -92,7 +90,6 @@ func (this *Detector) Detect(isMirror bool) (*AztecDetectorResult, error) {
 //
 // @param bullsEyeCorners the array of bull's eye corners
 // @throws NotFoundException in case of too many errors or invalid parameters
-//
 func (this *Detector) extractParameters(bullsEyeCorners []gozxing.ResultPoint) (e error) {
 	if !this.isValidPoint(bullsEyeCorners[0]) || !this.isValidPoint(bullsEyeCorners[1]) ||
 		!this.isValidPoint(bullsEyeCorners[2]) || !this.isValidPoint(bullsEyeCorners[3]) {
@@ -186,7 +183,6 @@ func getRotation(sides []int, length int) (int, error) {
 // @param parameterData parameter bits
 // @param compact true if this is a compact Aztec code
 // @throws NotFoundException if the array contains too many errors
-//
 func (this *Detector) getCorrectedParameterData(parameterData int64, compact bool) (int, error) {
 	var numCodewords int
 	var numDataCodewords int
@@ -225,7 +221,6 @@ func (this *Detector) getCorrectedParameterData(parameterData int64, compact boo
 // @param pCenter Center point
 // @return The corners of the bull-eye
 // @throws NotFoundException If no valid bull-eye can be found
-//
 func (this *Detector) getBullsEyeCorners(pCenter Point) ([]gozxing.ResultPoint, error) {
 
 	pina := pCenter
@@ -283,7 +278,6 @@ func (this *Detector) getBullsEyeCorners(pCenter Point) ([]gozxing.ResultPoint, 
 // getMatrixCenter Finds a candidate center point of an Aztec code from an image
 //
 // @return the center point
-//
 func (this *Detector) getMatrixCenter() Point {
 
 	var pointA gozxing.ResultPoint
@@ -352,7 +346,6 @@ func (this *Detector) getMatrixCenter() Point {
 //
 // @param bullsEyeCorners the array of bull's eye corners
 // @return the array of aztec code corners
-//
 func (this *Detector) getMatrixCornerPoints(bullsEyeCorners []gozxing.ResultPoint) []gozxing.ResultPoint {
 	return expandSquare(bullsEyeCorners, 2*this.nbCenterLayers, this.getDimension())
 }
@@ -360,7 +353,6 @@ func (this *Detector) getMatrixCornerPoints(bullsEyeCorners []gozxing.ResultPoin
 // sampleGrid Creates a BitMatrix by sampling the provided image.
 // topLeft, topRight, bottomRight, and bottomLeft are the centers of the squares on the
 // diagonal just outside the bull's eye.
-//
 func (this *Detector) sampleGrid(
 	image *gozxing.BitMatrix,
 	topLeft, topRight, bottomRight, bottomLeft gozxing.ResultPoint) (*gozxing.BitMatrix, error) {
@@ -391,7 +383,6 @@ func (this *Detector) sampleGrid(
 // @param p2   end point (exclusive)
 // @param size number of bits
 // @return the array of bits as an int (first bit is high-order bit of result)
-//
 func (this *Detector) sampleLine(p1, p2 gozxing.ResultPoint, size int) int {
 	result := 0
 
@@ -411,7 +402,6 @@ func (this *Detector) sampleLine(p1, p2 gozxing.ResultPoint, size int) int {
 }
 
 // isWhiteOrBlackRectangle @return true if the border of the rectangle passed in parameter is compound of white points only or black points only
-//
 func (this *Detector) isWhiteOrBlackRectangle(p1, p2, p3, p4 Point) bool {
 
 	corr := 3
@@ -463,7 +453,6 @@ func min(a, b int) int {
 // getColor Gets the color of a segment
 //
 // @return 1 if segment more than 90% black, -1 if segment is more than 90% white, 0 else
-//
 func (this *Detector) getColor(p1, p2 Point) int {
 	d := distanceP(p1, p2)
 	if d == 0.0 {
@@ -500,7 +489,6 @@ func (this *Detector) getColor(p1, p2 Point) int {
 }
 
 // getFirstDifferent Gets the coordinate of the first point with a different color in the given direction
-//
 func (this *Detector) getFirstDifferent(init Point, color bool, dx, dy int) Point {
 	x := init.getX() + dx
 	y := init.getY() + dy
@@ -532,7 +520,6 @@ func (this *Detector) getFirstDifferent(init Point, color bool, dx, dy int) Poin
 // @param oldSide the original length of the side of the square in the target bit matrix
 // @param newSide the new length of the size of the square in the target bit matrix
 // @return the corners of the expanded square
-//
 func expandSquare(cornerPoints []gozxing.ResultPoint, oldSide, newSide int) []gozxing.ResultPoint {
 	ratio := float64(newSide) / float64(2*oldSide)
 	dx := cornerPoints[0].GetX() - cornerPoints[2].GetX()
