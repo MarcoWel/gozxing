@@ -17,12 +17,12 @@ func NewMultiFormatReader() *MultiFormatReader {
 	return &MultiFormatReader{}
 }
 
-func (r *MultiFormatReader) Decode(image *gozxing.BinaryBitmap) (*gozxing.Result, error) {
-	r.SetHints(nil)
-	return r.DecodeInternal(image)
-}
+// func (r *MultiFormatReader) Decode(image *gozxing.BinaryBitmap) (*gozxing.Result, error) {
+// 	r.SetHints(nil)
+// 	return r.DecodeInternal(image)
+// }
 
-func (r *MultiFormatReader) DecodeWithHints(image *gozxing.BinaryBitmap, hints map[gozxing.DecodeHintType]interface{}) (*gozxing.Result, error) {
+func (r *MultiFormatReader) Decode(image *gozxing.BinaryBitmap, hints map[gozxing.DecodeHintType]interface{}) (*gozxing.Result, error) {
 	r.SetHints(hints)
 	return r.DecodeInternal(image)
 }
