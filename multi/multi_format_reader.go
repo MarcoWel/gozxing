@@ -1,6 +1,7 @@
-package gozxing
+package multi
 
 import (
+	"github.com/MarcoWel/gozxing"
 	"github.com/MarcoWel/gozxing/aztec"
 	"github.com/MarcoWel/gozxing/datamatrix"
 	"github.com/MarcoWel/gozxing/oned"
@@ -8,47 +9,47 @@ import (
 )
 
 type MultiFormatReader struct {
-	hints   map[DecodeHintType]interface{}
-	readers []Reader
+	hints   map[gozxing.DecodeHintType]interface{}
+	readers []gozxing.Reader
 }
 
 func NewMultiFormatReader() *MultiFormatReader {
 	return &MultiFormatReader{}
 }
 
-func (r *MultiFormatReader) Decode(image *BinaryBitmap) (*Result, error) {
+func (r *MultiFormatReader) Decode(image *gozxing.BinaryBitmap) (*gozxing.Result, error) {
 	r.SetHints(nil)
 	return r.DecodeInternal(image)
 }
 
-func (r *MultiFormatReader) DecodeWithHints(image *BinaryBitmap, hints map[DecodeHintType]interface{}) (*Result, error) {
+func (r *MultiFormatReader) DecodeWithHints(image *gozxing.BinaryBitmap, hints map[gozxing.DecodeHintType]interface{}) (*gozxing.Result, error) {
 	r.SetHints(hints)
 	return r.DecodeInternal(image)
 }
 
-func (r *MultiFormatReader) DecodeWithState(image *BinaryBitmap) (*Result, error) {
+func (r *MultiFormatReader) DecodeWithState(image *gozxing.BinaryBitmap) (*gozxing.Result, error) {
 	if r.readers == nil {
 		r.SetHints(nil)
 	}
 	return r.DecodeInternal(image)
 }
 
-func (r *MultiFormatReader) SetHints(hints map[DecodeHintType]interface{}) {
+func (r *MultiFormatReader) SetHints(hints map[gozxing.DecodeHintType]interface{}) {
 	r.hints = hints
 
-	var formats []BarcodeFormat
-	if hintFormats, ok := hints[DecodeHintType_POSSIBLE_FORMATS]; ok {
-		formats = hintFormats.([]BarcodeFormat)
+	var formats []gozxing.BarcodeFormat
+	if hintFormats, ok := hints[gozxing.DecodeHintType_POSSIBLE_FORMATS]; ok {
+		formats = hintFormats.([]gozxing.BarcodeFormat)
 	}
 
-	var readers []Reader
+	var readers []gozxing.Reader
 	for _, format := range formats {
 		switch format {
-		case BarcodeFormat_QR_CODE:
+		case gozxing.BarcodeFormat_QR_CODE:
 			readers = append(readers, qrcode.NewQRCodeReader())
-		case BarcodeFormat_DATA_MATRIX:
+		case gozxing.BarcodeFormat_DATA_MATRIX:
 			readers = append(readers, datamatrix.NewDataMatrixReader())
-		case BarcodeFormat_AZTEC:
+		case gozxing.BarcodeFormat_AZTEC:
 			readers = append(readers, aztec.NewAztecReader())
 		// case BarcodeFormat_PDF_417:
 		// 	readers = append(readers, pdf417.NewPDF417Reader())
@@ -78,12 +79,12 @@ func (r *MultiFormatReader) Reset() {
 	}
 }
 
-func (r *MultiFormatReader) DecodeInternal(image *BinaryBitmap) (*Result, error) {
+func (r *MultiFormatReader) DecodeInternal(image *gozxing.BinaryBitmap) (*gozxing.Result, error) {
 	for _, reader := range r.readers {
 		result, err := reader.Decode(image, r.hints)
 		if err == nil {
 			return result, nil
 		}
 	}
-	return nil, NewNotFoundException()
+	return nil, gozxing.NewNotFoundException()
 }
