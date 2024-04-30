@@ -33,13 +33,16 @@ func (r *GenericMultipleBarcodeReader) DecodeMultiple(image *gozxing.BinaryBitma
 }
 
 func (r *GenericMultipleBarcodeReader) doDecodeMultiple(image *gozxing.BinaryBitmap, hints map[gozxing.DecodeHintType]interface{}, results *[]*gozxing.Result, xOffset, yOffset, currentDepth int) error {
+	fmt.Println("Decoding image at", xOffset, yOffset, "depth", currentDepth)
 	if currentDepth > maxDepth {
+		fmt.Println("Too deep, returning nothing")
 		return nil
 	}
 
 	result, err := r.delegate.Decode(image, hints)
 	if err != nil {
 		if _, ok := err.(gozxing.ReaderException); ok {
+			fmt.Println("ReaderException, returning nothing")
 			return nil // ignore ReaderException
 		}
 		return err
@@ -48,25 +51,27 @@ func (r *GenericMultipleBarcodeReader) doDecodeMultiple(image *gozxing.BinaryBit
 	alreadyFound := false
 	for _, existingResult := range *results {
 		if existingResult.GetText() == result.GetText() {
+			fmt.Println("Already found", result.GetText())
 			alreadyFound = true
 			break
 		}
 	}
 
 	if !alreadyFound {
+		fmt.Println("Appending result", result.GetText())
 		translatedResult := translateResultPoints(result, xOffset, yOffset)
 		*results = append(*results, translatedResult)
 	}
 
 	resultPoints := result.GetResultPoints()
-	if resultPoints == nil || len(resultPoints) == 0 {
+	if len(resultPoints) == 0 {
 		return nil
 	}
 
 	width := image.GetWidth()
 	height := image.GetHeight()
-	var minX, minY = float64(width), float64(height)
-	var maxX, maxY float64 = 0, 0
+	var minX, minY = width, height
+	var maxX, maxY = 0, 0
 
 	for _, point := range resultPoints {
 		x, y := point.GetX(), point.GetY()
@@ -84,21 +89,25 @@ func (r *GenericMultipleBarcodeReader) doDecodeMultiple(image *gozxing.BinaryBit
 		}
 	}
 
+	// Decode left of barcode
 	if minX > minDimensionToRecur {
-		subImage, _ := image.Crop(0, 0, int(minX), height)
+		subImage, _ := image.Crop(0, 0, minX, height)
 		r.doDecodeMultiple(subImage, hints, results, xOffset, yOffset, currentDepth+1)
 	}
+	// Decode above barcode
 	if minY > minDimensionToRecur {
-		subImage, _ := image.Crop(0, 0, width, int(minY))
+		subImage, _ := image.Crop(0, 0, width, minY)
 		r.doDecodeMultiple(subImage, hints, results, xOffset, yOffset, currentDepth+1)
 	}
-	if maxX < float64(width)-minDimensionToRecur {
-		subImage, _ := image.Crop(int(maxX), 0, width-int(maxX), height)
-		r.doDecodeMultiple(subImage, hints, results, xOffset+int(maxX), yOffset, currentDepth+1)
+	// Decode right of barcode
+	if maxX < width-minDimensionToRecur {
+		subImage, _ := image.Crop(maxX, 0, width-maxX, height)
+		r.doDecodeMultiple(subImage, hints, results, xOffset+maxX, yOffset, currentDepth+1)
 	}
-	if maxY < float64(height)-minDimensionToRecur {
-		subImage, _ := image.Crop(0, int(maxY), width, height-int(maxY))
-		r.doDecodeMultiple(subImage, hints, results, xOffset, yOffset+int(maxY), currentDepth+1)
+	// Decode below barcode
+	if maxY < height-minDimensionToRecur {
+		subImage, _ := image.Crop(0, maxY, width, height-max))
+		r.doDecodeMultiple(subImage, hints, results, xOffset, yOffset+maxY, currentDepth+1)
 	}
 
 	return nil
