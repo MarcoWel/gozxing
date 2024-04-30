@@ -57,8 +57,8 @@ func NewMultiFormatOneDReader(hints map[gozxing.DecodeHintType]interface{}) gozx
 
 func (r *MultiFormatOneDReader) DecodeRow(rowNumber int, row *gozxing.BitArray, hints map[gozxing.DecodeHintType]interface{}) (*gozxing.Result, error) {
 	for _, reader := range r.readers {
-		onedreader := reader.(*OneDReader)
-		result, err := onedreader.DecodeRow(rowNumber, row, hints)
+		decoder := reader.(RowDecoder)
+		result, err := decoder.DecodeRow(rowNumber, row, hints)
 		if err == nil {
 			return result, nil
 		}
