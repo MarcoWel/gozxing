@@ -47,8 +47,8 @@ func (r *MultiFormatReader) SetHints(hints map[gozxing.DecodeHintType]interface{
 		switch format {
 		case gozxing.BarcodeFormat_QR_CODE:
 			readers = append(readers, qrcode.NewQRCodeReader())
-		// case gozxing.BarcodeFormat_DATA_MATRIX:
-		// 	readers = append(readers, datamatrix.NewDataMatrixReader())
+		case gozxing.BarcodeFormat_DATA_MATRIX:
+			readers = append(readers, datamatrix.NewDataMatrixReader())
 		case gozxing.BarcodeFormat_AZTEC:
 			readers = append(readers, aztec.NewAztecReader())
 		// case BarcodeFormat_PDF_417:

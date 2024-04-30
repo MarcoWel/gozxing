@@ -5,11 +5,11 @@ import (
 )
 
 type MultiFormatOneDReader struct {
-	OneDReader
+	*OneDReader
 	readers []gozxing.Reader
 }
 
-func NewMultiFormatOneDReader(hints map[gozxing.DecodeHintType]interface{}) MultiFormatOneDReader {
+func NewMultiFormatOneDReader(hints map[gozxing.DecodeHintType]interface{}) gozxing.Reader {
 	possibleFormats, ok := hints[gozxing.DecodeHintType_POSSIBLE_FORMATS].([]gozxing.BarcodeFormat)
 	var readers []gozxing.Reader
 
@@ -48,7 +48,11 @@ func NewMultiFormatOneDReader(hints map[gozxing.DecodeHintType]interface{}) Mult
 		// readers = append(readers, rss.NewRSSExpandedReader())
 	}
 
-	return MultiFormatOneDReader{readers: readers}
+	this := &MultiFormatOneDReader{
+		readers: readers,
+	}
+	this.OneDReader = NewOneDReader(this)
+	return this
 }
 
 func (r *MultiFormatOneDReader) DecodeRow(rowNumber int, row *gozxing.BitArray, hints map[gozxing.DecodeHintType]interface{}) (*gozxing.Result, error) {
